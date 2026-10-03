@@ -57,3 +57,11 @@ exists as a hosted site.
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## Deploy note
+
+GitHub Pages CDN caches ~10 minutes. When changing sketch code, bump the
+`?v=` on the script tag in `lightning/index.html` (and any other changed
+sketch file) so visitors get the new code instantly instead of after the
+cache window. HTML-only edits are also subject to the cache — a hard
+refresh (Cmd+Shift+R) bypasses it for the local visitor.

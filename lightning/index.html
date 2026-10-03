@@ -27,6 +27,11 @@
   details.src pre { background: #121016; border: 1px solid #2a2730; border-radius: 10px;
                     padding: 14px; max-height: 420px; overflow: auto; font-size: 11.5px;
                     line-height: 1.45; color: #c9c4d0; white-space: pre; }
+  #codebox { width: 100%; box-sizing: border-box; background: #121016; color: #c9c4d0;
+             border: 1px solid #2a2730; border-radius: 10px; padding: 12px;
+             min-height: 300px; height: 42vh; font: 11.5px/1.45 ui-monospace, Menlo, monospace;
+             white-space: pre; overflow: auto; resize: vertical; }
+  #codestat { font-size: 12.5px; color: #9a93a0; }
   footer { color: #6a6570; font-size: 12px; margin-top: 24px; line-height: 1.6; }
   footer a { color: #9a93a0; }
 </style>
@@ -55,21 +60,60 @@ wants to make with one of these &mdash; she hasn't decided yet.</p>
 </div>
 <p id="seedlabel">seed 7 &middot; tap the sky</p>
 <details class="src">
-  <summary>see the source &mdash; the exact code that's drawing this</summary>
-  <pre id="srccode"></pre>
+  <summary>see the source &mdash; and hack it: edit, then run your version</summary>
+  <p style="color:#7a7580;font-size:12.5px;margin:6px 0">
+    This is the real code. Change anything and press run &mdash; the sky regenerates
+    from <em>your</em> copy. Reload the page to get the original back.
+    Safe first experiments: edit a color triple in <b>PALS</b>, or change
+    <b>ROUGH</b> / <b>SEED</b>.</p>
+  <textarea id="codebox" spellcheck="false"></textarea>
+  <div class="controls" style="margin:8px 0 4px">
+    <button onclick="runMyVersion(this)">▶ run my version</button>
+    <button onclick="resetCode(this)">reset</button>
+    <span id="codestat"></span>
+  </div>
 </details>
 <script language="javascript" type="text/javascript" src="../libraries/p5.min.js"></script>
-<script language="javascript" type="text/javascript" src="lightning.js"></script>
+<script language="javascript" type="text/javascript" src="lightning.js?v=3"></script>
 <script>
+var ORIGINAL_SRC = null;
 fetch('lightning.js').then(function(r){
   if (!r.ok) throw new Error(r.status); return r.text();
 }).then(function(t){
-  document.getElementById('srccode').textContent = t;
+  ORIGINAL_SRC = t;
+  document.getElementById('codebox').value = t;
 }).catch(function(){
   document.querySelector('.src').innerHTML =
     '<summary>see the source</summary><p style="color:#9a93a0">browse it on ' +
     '<a href="https://github.com/oniseijin/sketchbook/blob/main/lightning/lightning.js" style="color:#c9c4d0">GitHub</a></p>';
 });
+
+function stat(msg, ok) {
+  var el = document.getElementById('codestat');
+  el.textContent = msg;
+  el.style.color = ok ? '#7ee2a0' : '#ff7a9a';
+}
+
+function runMyVersion(btn) {
+  var code = document.getElementById('codebox').value;
+  try {
+    (0, eval)(code);              // run her copy in global scope: p5 picks it up
+    buildScene();
+    syncControls();
+    syncHash();
+    stat('\u2713 running your version \u2014 reload the page for the original', true);
+  } catch (e) {
+    stat('\u2717 ' + e.message, false);
+  }
+}
+window.onerror = function(msg) { stat('\u2717 ' + msg, false); };
+
+function resetCode(btn) {
+  if (ORIGINAL_SRC === null) return;
+  document.getElementById('codebox').value = ORIGINAL_SRC;
+  runMyVersion(btn);
+  stat('\u2713 original restored', true);
+}
 </script>
 <footer>The math: recursive midpoint displacement (fractional Brownian motion),
 self-similar branching (the collage theorem), and additive glow kernels.
