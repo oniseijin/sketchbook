@@ -27,8 +27,12 @@ near-white core, all additive over black. Gaussian spray speckle supplies the
 chalk fuzz. Tap the sky for a new seed; the palette dots retint it.
 
 The desktop sibling — a Processing sketch with a 4x print renderer — lives in
-my private archive; seed 7 in hot pink is the one on the wall as a print.
-Inspired by a hand-painted canvas by TikTok user @peachykayy.
+my private archive. My daughter is still deciding what she wants to make with
+it; every seed is a candidate. Inspired by a hand-painted canvas by TikTok
+user @peachykayy.
+
+Both pages carry a **"see the source"** panel that fetches the sketch's own
+file at runtime — the code you read is the code that's drawing.
 
 ## Running locally
 

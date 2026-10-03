@@ -18,6 +18,11 @@
   footer { color: #909098; font-size: 12.5px; margin-top: 26px; line-height: 1.6; }
   footer a { color: #606068; }
   a.back { color: #909098; text-decoration: none; font-size: 13px; }
+  details.src { margin: 16px 0 0; }
+  details.src summary { cursor: pointer; color: #70707a; font-size: 13.5px; }
+  details.src pre { background: #f0eff2; border: 1px solid #e2e2e6; border-radius: 8px;
+                    padding: 14px; max-height: 420px; overflow: auto; font-size: 11.5px;
+                    line-height: 1.45; color: #33333a; white-space: pre; }
 </style>
 </head>
 <body>
@@ -36,6 +41,21 @@ my daughter, who needs that same geometry right now.</p>
 Watch how each behaves as you cross the quadrants: that <em>is</em> the lesson.</p>
 <script language="javascript" type="text/javascript" src="../libraries/p5.min.js"></script>
 <script language="javascript" type="text/javascript" src="geometry_p5.js"></script>
+<details class="src">
+  <summary>see the source &mdash; the exact code that's drawing this</summary>
+  <pre id="srccode"></pre>
+</details>
+<script>
+fetch('geometry_p5.js').then(function(r){
+  if (!r.ok) throw new Error(r.status); return r.text();
+}).then(function(t){
+  document.getElementById('srccode').textContent = t;
+}).catch(function(){
+  document.querySelector('.src').innerHTML =
+    '<summary>see the source</summary><p style="color:#909098">browse it on ' +
+    '<a href="https://github.com/oniseijin/sketchbook/blob/main/unit-circle/geometry_p5.js" style="color:#606068">GitHub</a></p>';
+});
+</script>
 <footer>Inspired by <a href="https://www.mathsisfun.com/sine-cosine-tangent.html">mathsisfun.com</a> &middot;
 first sketched in <a href="https://processing.org">Processing</a> 2018, ported to
 <a href="https://p5js.org">p5.js</a> 2019 &middot; also on

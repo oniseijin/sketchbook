@@ -18,6 +18,11 @@
   .dot { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
   .dot.sel { border-color: #fff; }
   #seedlabel, #paillabel { color: #7a7580; font-size: 12.5px; text-align: center; margin: 2px 0; }
+  details.src { margin: 14px 0 0; }
+  details.src summary { cursor: pointer; color: #9a93a0; font-size: 13.5px; }
+  details.src pre { background: #121016; border: 1px solid #2a2730; border-radius: 10px;
+                    padding: 14px; max-height: 420px; overflow: auto; font-size: 11.5px;
+                    line-height: 1.45; color: #c9c4d0; white-space: pre; }
   footer { color: #6a6570; font-size: 12px; margin-top: 24px; line-height: 1.6; }
   footer a { color: #9a93a0; }
 </style>
@@ -28,8 +33,8 @@
 <p>This canvas is grown from pure math: a seed number becomes fractional Brownian
 discharge paths, the paths branch into smaller copies of themselves, and the glow
 is light added on top of light. Tap the sky for a new seed &mdash; every seed is a
-different picture, and no two are ever alike. One of them got printed big for a
-little girl's room wall.</p>
+different picture, and no two are ever alike. My daughter gets to pick what she
+wants to make with one of these &mdash; she hasn't decided yet.</p>
 <div class="controls">
   <button onclick="reroll()">new sky</button>
   <span class="dot" style="background:#e01d9c" onclick="setPalette(0);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="hot pink"></span>
@@ -39,8 +44,23 @@ little girl's room wall.</p>
   <span class="dot" style="background:#f08a18" onclick="setPalette(4);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="amber"></span>
 </div>
 <p id="seedlabel">seed 7 &middot; tap the sky</p>
+<details class="src">
+  <summary>see the source &mdash; the exact code that's drawing this</summary>
+  <pre id="srccode"></pre>
+</details>
 <script language="javascript" type="text/javascript" src="../libraries/p5.min.js"></script>
 <script language="javascript" type="text/javascript" src="lightning.js"></script>
+<script>
+fetch('lightning.js').then(function(r){
+  if (!r.ok) throw new Error(r.status); return r.text();
+}).then(function(t){
+  document.getElementById('srccode').textContent = t;
+}).catch(function(){
+  document.querySelector('.src').innerHTML =
+    '<summary>see the source</summary><p style="color:#9a93a0">browse it on ' +
+    '<a href="https://github.com/oniseijin/sketchbook/blob/main/lightning/lightning.js" style="color:#c9c4d0">GitHub</a></p>';
+});
+</script>
 <footer>The math: recursive midpoint displacement (fractional Brownian motion),
 self-similar branching (the collage theorem), and additive glow kernels.
 Desktop sibling lives in Processing with a 4&times; print renderer.
