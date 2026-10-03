@@ -34,6 +34,19 @@ user @peachykayy.
 Both pages carry a **"see the source"** panel that fetches the sketch's own
 file at runtime — the code you read is the code that's drawing.
 
+## Repo relationship
+
+This repo lives twice, on purpose:
+
+- **`gitlab.com/ryanamills/sketchbook` (private) — the source of record.**
+- **`github.com/oniseijin/sketchbook` (public) — the deploy mirror** that
+  GitHub Pages serves at the URL above. Its publicness is accepted and
+  intentional: the pages themselves expose their source by design.
+
+Every change is pushed to **both** remotes from the working clone (remotes
+`gitlab` and `origin`). The wider Processing archive is a separate, private
+GitLab repo (`ryanamills/processing`) and is not published.
+
 ## Running locally
 
 Any static server works (`python3 -m http.server`), then open the page.

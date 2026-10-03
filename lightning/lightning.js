@@ -45,7 +45,10 @@ var ARMS = [
 function setup() {
   fitCanvas();
   BG = color(5, 5, 7);
+  applyHash();
   buildScene();
+  syncControls();
+  syncHash();
 }
 
 function fitCanvas() {
@@ -77,14 +80,79 @@ function insideCanvas() {
 function reroll() {
   SEED = Math.floor(random(1, 99999999));
   buildScene();
+  syncHash();
   var el = document.getElementById('seedlabel');
-  if (el) el.textContent = 'seed ' + SEED;
+  if (el) el.textContent = 'seed ' + SEED + ' \u00b7 tap the sky';
+}
+
+// ---------- playground: storm dials + shareable skies ----------
+function clamp(v, lo, hi, dflt) {
+  v = parseFloat(v);
+  return isNaN(v) ? dflt : Math.min(hi, Math.max(lo, v));
+}
+
+function applyHash() {
+  var h = new URLSearchParams(location.hash.slice(1));
+  if (!(h.has('s') || h.has('r') || h.has('b') || h.has('g') || h.has('p'))) return;
+  if (h.has('s')) { var s = parseInt(h.get('s')); if (s >= 1) SEED = s; }
+  if (h.has('r')) ROUGH = clamp(h.get('r'), 0.42, 0.72, ROUGH);
+  if (h.has('b')) BRANCH = clamp(h.get('b'), 0.3, 2.0, BRANCH);
+  if (h.has('g')) GLOW = clamp(h.get('g'), 0.6, 1.6, GLOW);
+  if (h.has('p')) PAL = Math.round(clamp(h.get('p'), 0, 4, PAL));
+}
+
+function syncHash() {
+  history.replaceState(null, '',
+    '#s=' + SEED + '&r=' + (+ROUGH.toFixed(2)) + '&b=' + (+BRANCH.toFixed(1)) +
+    '&g=' + (+GLOW.toFixed(1)) + '&p=' + PAL);
+}
+
+function syncControls() {
+  var r = document.getElementById('drough'), rv = document.getElementById('rval');
+  var b = document.getElementById('dbranch'), bv = document.getElementById('bval');
+  var g = document.getElementById('dglow'), gv = document.getElementById('gval');
+  if (r) { r.value = ROUGH; rv.textContent = (+ROUGH.toFixed(2)); }
+  if (b) { b.value = BRANCH; bv.textContent = (+BRANCH.toFixed(1)); }
+  if (g) { g.value = GLOW; gv.textContent = (+GLOW.toFixed(1)); }
+  var dots = document.querySelectorAll('.dot');
+  for (var i = 0; i < dots.length; i++)
+    dots[i].classList.toggle('sel', i === PAL);
+  var se = document.getElementById('seedlabel');
+  if (se) se.textContent = 'seed ' + SEED + ' \u00b7 tap the sky';
+  var pe = document.getElementById('paillabel');
+  if (pe) pe.textContent = PALNAMES[PAL];
+}
+
+function setParam(k, v) {
+  if (k === 'r') ROUGH = clamp(v, 0.42, 0.72, ROUGH);
+  if (k === 'b') BRANCH = clamp(v, 0.3, 2.0, BRANCH);
+  if (k === 'g') GLOW = clamp(v, 0.6, 1.6, GLOW);
+  buildScene();
+  syncHash();
+  syncControls();
 }
 
 function setPalette(i) {
   PAL = i;
   var el = document.getElementById('paillabel');
   if (el) el.textContent = PALNAMES[i];
+  var dots = document.querySelectorAll('.dot');
+  for (var j = 0; j < dots.length; j++) dots[j].classList.toggle('sel', j === i);
+  syncHash();
+}
+
+function copyLink(btn) {
+  var url = location.href;
+  var done = function() {
+    var old = btn.textContent;
+    btn.textContent = 'link copied!';
+    setTimeout(function() { btn.textContent = old; }, 1400);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(done, function() { prompt('copy this link:', url); });
+  } else {
+    prompt('copy this link:', url);
+  }
 }
 
 // ---------------------------------------------------------------- scene

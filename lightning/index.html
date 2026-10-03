@@ -12,6 +12,10 @@
   p { line-height: 1.55; font-size: 14.5px; margin: 0 0 12px; color: #b5b0bc; }
   canvas { display: block; margin: 6px auto; border-radius: 10px; cursor: pointer; }
   .controls { display: flex; align-items: center; gap: 10px; justify-content: center; margin: 14px 0 4px; flex-wrap: wrap; }
+  .dials { margin: 10px auto 0; max-width: 440px; }
+  .dials label { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #9a93a0; margin: 6px 0; }
+  .dials input[type=range] { flex: 1; accent-color: #ff5fb4; }
+  .dials span { min-width: 34px; text-align: right; color: #c9c4d0; }
   button { background: #1c1a22; color: #e8e4ea; border: 1px solid #3a3742; border-radius: 10px;
            padding: 9px 18px; font-size: 14.5px; cursor: pointer; }
   button:active { background: #2a2732; }
@@ -37,11 +41,17 @@ different picture, and no two are ever alike. My daughter gets to pick what she
 wants to make with one of these &mdash; she hasn't decided yet.</p>
 <div class="controls">
   <button onclick="reroll()">new sky</button>
-  <span class="dot" style="background:#e01d9c" onclick="setPalette(0);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="hot pink"></span>
-  <span class="dot" style="background:#7a2beb" onclick="setPalette(1);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="violet"></span>
-  <span class="dot" style="background:#2a66e8" onclick="setPalette(2);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="electric blue"></span>
-  <span class="dot" style="background:#18c25e" onclick="setPalette(3);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="neon green"></span>
-  <span class="dot" style="background:#f08a18" onclick="setPalette(4);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="amber"></span>
+  <button onclick="copyLink(this)">copy link</button>
+  <span class="dot" style="background:#e01d9c" onclick="setPalette(0)" title="hot pink"></span>
+  <span class="dot" style="background:#7a2beb" onclick="setPalette(1)" title="violet"></span>
+  <span class="dot" style="background:#2a66e8" onclick="setPalette(2)" title="electric blue"></span>
+  <span class="dot" style="background:#18c25e" onclick="setPalette(3)" title="neon green"></span>
+  <span class="dot" style="background:#f08a18" onclick="setPalette(4)" title="amber"></span>
+</div>
+<div class="dials">
+  <label>roughness <input type="range" id="drough" min="0.42" max="0.72" step="0.02" oninput="setParam('r',this.value)"> <span id="rval"></span></label>
+  <label>branches <input type="range" id="dbranch" min="0.3" max="2" step="0.1" oninput="setParam('b',this.value)"> <span id="bval"></span></label>
+  <label>glow <input type="range" id="dglow" min="0.6" max="1.6" step="0.1" oninput="setParam('g',this.value)"> <span id="gval"></span></label>
 </div>
 <p id="seedlabel">seed 7 &middot; tap the sky</p>
 <details class="src">

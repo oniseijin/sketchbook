@@ -23,6 +23,11 @@
   details.src pre { background: #f0eff2; border: 1px solid #e2e2e6; border-radius: 8px;
                     padding: 14px; max-height: 420px; overflow: auto; font-size: 11.5px;
                     line-height: 1.45; color: #33333a; white-space: pre; }
+  details.tricky { border: 1px solid #e2e2e6; border-radius: 8px; padding: 12px 16px;
+                   margin: 16px 0 0; }
+  details.tricky summary { cursor: pointer; font-weight: 600; font-size: 14.5px; }
+  details.tricky ol { margin: 10px 0 4px; padding-left: 22px; }
+  details.tricky li { margin: 7px 0; line-height: 1.5; font-size: 14.5px; }
 </style>
 </head>
 <body>
@@ -56,6 +61,19 @@ fetch('geometry_p5.js').then(function(r){
     '<a href="https://github.com/oniseijin/sketchbook/blob/main/unit-circle/geometry_p5.js" style="color:#606068">GitHub</a></p>';
 });
 </script>
+<details class="tricky" open>
+  <summary>Try this</summary>
+  <ol>
+    <li>Find the angle where the <span class="r">red line</span> reaches its full
+        height &mdash; that's <em>sin = 1</em>. What angle is that?</li>
+    <li>Can you make the <span class="r">red</span> and <span class="b">blue</span>
+        lines exactly the same length? How many places can you find?</li>
+    <li>Find <em>two</em> angles where the <span class="g">green line</span>
+        disappears to nothing.</li>
+    <li>Drag into the third quadrant and watch the numbers go negative &mdash;
+        why do they have to?</li>
+  </ol>
+</details>
 <footer>Inspired by <a href="https://www.mathsisfun.com/sine-cosine-tangent.html">mathsisfun.com</a> &middot;
 first sketched in <a href="https://processing.org">Processing</a> 2018, ported to
 <a href="https://p5js.org">p5.js</a> 2019 &middot; also on
