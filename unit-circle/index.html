@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Unit Circle — sin, cos, tan as shapes</title>
+<style>
+  body { background: #fafafa; color: #1a1a1e; font-family: -apple-system, "Segoe UI", sans-serif;
+         margin: 0; padding: 30px 16px 48px; max-width: 560px; margin-inline: auto; }
+  h1 { font-size: 22px; font-weight: 600; margin: 0 0 12px; }
+  p { line-height: 1.55; font-size: 15px; margin: 0 0 12px; }
+  .legend span.r { color: #d02020; font-weight: 600; }
+  .legend span.b { color: #1040d0; font-weight: 600; }
+  .legend span.g { color: #0a9020; font-weight: 600; }
+  .story { color: #4a4a52; }
+  canvas { display: block; margin: 18px auto 6px; border: 1px solid #e2e2e6; border-radius: 8px;
+           touch-action: none; max-width: 100%; height: auto !important; }
+  footer { color: #909098; font-size: 12.5px; margin-top: 26px; line-height: 1.6; }
+  footer a { color: #606068; }
+  a.back { color: #909098; text-decoration: none; font-size: 13px; }
+</style>
+</head>
+<body>
+<a class="back" href="../">&larr; sketchbook</a>
+<h1>The Unit Circle</h1>
+<p class="story">In 2018 I set out to build a little starship game and discovered I'd
+forgotten the geometry it needed. So before writing the game, I wrote this: a unit
+circle you can push around until sine, cosine and tangent stop being formulas and
+start being shapes. It worked &mdash; the game became
+<a href="https://github.com/oniseijin/starships">Starships</a>. Now this page is for
+my daughter, who needs that same geometry right now.</p>
+<p class="legend">Move the point around the circle.
+<span class="r">Red is sine &mdash; the height.</span>
+<span class="b">Blue is cosine &mdash; the run.</span>
+<span class="g">Green is tangent &mdash; the slope.</span>
+Watch how each behaves as you cross the quadrants: that <em>is</em> the lesson.</p>
+<script language="javascript" type="text/javascript" src="../libraries/p5.min.js"></script>
+<script language="javascript" type="text/javascript" src="geometry_p5.js"></script>
+<footer>Inspired by <a href="https://www.mathsisfun.com/sine-cosine-tangent.html">mathsisfun.com</a> &middot;
+first sketched in <a href="https://processing.org">Processing</a> 2018, ported to
+<a href="https://p5js.org">p5.js</a> 2019 &middot; also on
+<a href="https://www.openprocessing.org/sketch/510296">OpenProcessing</a> &middot;
+Ryan Mills</footer>
+</body>
+</html>

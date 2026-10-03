@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fractal Lightning — grown from a seed</title>
+<style>
+  body { background: #0a0a0c; color: #e8e4ea; font-family: -apple-system, "Segoe UI", sans-serif;
+         margin: 0; padding: 26px 16px 48px; max-width: 600px; margin-inline: auto; }
+  a.back { color: #7a7580; text-decoration: none; font-size: 13px; }
+  h1 { font-size: 21px; font-weight: 600; margin: 10px 0 10px; }
+  p { line-height: 1.55; font-size: 14.5px; margin: 0 0 12px; color: #b5b0bc; }
+  canvas { display: block; margin: 6px auto; border-radius: 10px; cursor: pointer; }
+  .controls { display: flex; align-items: center; gap: 10px; justify-content: center; margin: 14px 0 4px; flex-wrap: wrap; }
+  button { background: #1c1a22; color: #e8e4ea; border: 1px solid #3a3742; border-radius: 10px;
+           padding: 9px 18px; font-size: 14.5px; cursor: pointer; }
+  button:active { background: #2a2732; }
+  .dot { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+  .dot.sel { border-color: #fff; }
+  #seedlabel, #paillabel { color: #7a7580; font-size: 12.5px; text-align: center; margin: 2px 0; }
+  footer { color: #6a6570; font-size: 12px; margin-top: 24px; line-height: 1.6; }
+  footer a { color: #9a93a0; }
+</style>
+</head>
+<body>
+<a class="back" href="../">&larr; sketchbook</a>
+<h1>Fractal Lightning</h1>
+<p>This canvas is grown from pure math: a seed number becomes fractional Brownian
+discharge paths, the paths branch into smaller copies of themselves, and the glow
+is light added on top of light. Tap the sky for a new seed &mdash; every seed is a
+different picture, and no two are ever alike. One of them got printed big for a
+little girl's room wall.</p>
+<div class="controls">
+  <button onclick="reroll()">new sky</button>
+  <span class="dot" style="background:#e01d9c" onclick="setPalette(0);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="hot pink"></span>
+  <span class="dot" style="background:#7a2beb" onclick="setPalette(1);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="violet"></span>
+  <span class="dot" style="background:#2a66e8" onclick="setPalette(2);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="electric blue"></span>
+  <span class="dot" style="background:#18c25e" onclick="setPalette(3);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="neon green"></span>
+  <span class="dot" style="background:#f08a18" onclick="setPalette(4);this.parentNode.querySelectorAll('.dot').forEach(d=>d.classList.remove('sel'));this.classList.add('sel')" title="amber"></span>
+</div>
+<p id="seedlabel">seed 7 &middot; tap the sky</p>
+<script language="javascript" type="text/javascript" src="../libraries/p5.min.js"></script>
+<script language="javascript" type="text/javascript" src="lightning.js"></script>
+<footer>The math: recursive midpoint displacement (fractional Brownian motion),
+self-similar branching (the collage theorem), and additive glow kernels.
+Desktop sibling lives in Processing with a 4&times; print renderer.
+Inspired by a hand-painted canvas by <a href="https://www.tiktok.com/@peachykayy">@peachykayy</a>.</footer>
+</body>
+</html>
